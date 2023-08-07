@@ -27,6 +27,7 @@ development:
   encoding: unicode
   database: nanner_wedding_development
   pool: 5
+  # sudo service postgresql start
   username: <%= ENV['POSTGRES_USER'] %>
   password: <%= ENV['POSTGRES_PASSWORD'] %>
   host: localhost

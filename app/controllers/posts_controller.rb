@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   def index
-    @posts = Post.last
+    @posts = Post.all
     @post = Post.new # Initialize an instance of Post for the form
   end
 

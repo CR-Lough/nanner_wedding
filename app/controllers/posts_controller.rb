@@ -1,29 +1,24 @@
 class PostsController < ApplicationController
+  def index
+    @posts = Post.last
+    @post = Post.new # Initialize an instance of Post for the form
+  end
 
-    #define action
-    def index
-        #then define corresponding view in views/
-        #these view files are created in erb which can take ruby
-        #and display html
+  def create
+    @post = Post.new(post_params)
+
+    if @post.save
+      redirect_to posts_path, notice: 'Post was successfully created.'
+    else
+      @posts = Post.all # Needed to redisplay the list of posts on the same page
+      render :index
     end
+  end
 
-    def create
-        @post = Post.new(post_params)
-        if @post.save
-          render json: @post, status: :created
-        else
-          render json: @post.errors, status: :unprocessable_entity
-        end
-    end
+  private
 
-    # def create
-    #     post = Post.create!(post_params)
-    #     redirect_to post
-    # end
-    
-    private
-        def post_params
-            params.require(:post).permit(:title, images: [])
-        end
-
+  def post_params
+    params.require(:post).permit(:title, images: [])
+  end
 end
+  

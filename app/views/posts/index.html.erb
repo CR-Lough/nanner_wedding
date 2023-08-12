@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Photo Gallery</title>
+</head>
+<body>
+
+<h1>Photo Gallery</h1>
+
+<%= form_for(@post, html: { multipart: true }) do |form| %>
+  <label for="post_title">Title:</label>
+  <%= form.text_field :title %>
+
+  <label for="post_images">Select photos to upload:</label>
+  <%= form.file_field :images, multiple: true %>
+  
+  <%= form.submit "Create Post" %>
+<% end %>
+
+<ul>
+  <% @posts.images.each do |image| %>
+    <li>
+      <% if image.representable? %>
+        <%= image_tag image.representation(resize_to_limit: [300, 300]) %>
+      <% else %>
+        <%= link_to rails_blob_path(image, disposition: "attachment") do %>
+          <%= image_tag "placeholder.png", alt: "Download image" %>
+        <% end %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+
+</body>
+</html>

@@ -89,6 +89,4 @@ test:
 #
 production:
   <<: *default
-  database: nanner_wedding_production
-  username: nanner_wedding
-  password: <%= ENV["NANNER_WEDDING_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>

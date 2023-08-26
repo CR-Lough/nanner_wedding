@@ -22,11 +22,14 @@
                     <%= form.text_field :title, class: "form-control" %>
                 </div>
                 <div class="form-group">
-                    <%= form.label :images %>
+                    <%= form.label :attachments %>
                     <%= form.file_field :images, multiple: true, class: "form-control-file" %>
                 </div>
+
                 <%= form.submit "Create Post", class: "btn btn-primary" %>
             <% end %>
+            
+            <div style="margin-top: 40px;"></div>
 
             <!-- Display Posts -->
             <% @posts.each do |post| %>
@@ -39,12 +42,10 @@
                                 <div class="col-md-4">
                                     <div class="card">
                                         <div class="card-body">
-                                            <% if image.representable? %>
+                                            <% if image.content_type.include?("image") %>
                                                 <%= image_tag image.representation(resize_to_limit: [300, 300]) %>
                                             <% else %>
-                                                <div class="placeholder-image">
-                                                    <%= image_tag "placeholder.png", alt: "Download image" %>
-                                                </div>
+                                                <%= video_tag url_for(image), controls: true, style: "max-width: 300px; height: auto;" %>
                                             <% end %>
                                         </div>
                                     </div>
